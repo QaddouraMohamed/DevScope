@@ -1,0 +1,32 @@
+body {
+  background-image: url("../assets/image/gif.gif");
+  /* Prevent the image from repeating like a grid */
+  background-repeat: no-repeat;
+
+  /* Center the image on the screen */
+  background-position: center;
+
+  /* Scale the image to cover the entire background area */
+  background-size: cover;
+
+  /* Keep the background fixed so it doesn't scroll with the text */
+  background-attachment: fixed;
+}
+
+.lighting {
+  animation: pop 5s ease infinite;
+}
+
+@keyframes pop {
+  0% {
+    text-shadow: 0 0 0;
+  }
+
+  50% {
+    text-shadow: 0 0 66px white;
+  }
+
+  100% {
+    text-shadow: 0 0 0;
+  }
+}
