@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../css/all.css" />
     <title>DevScope</title>
   </head>
@@ -27,6 +31,29 @@
       </div>
     </header>
 
-    <main></main>
+    <main
+      class="flex flex-col items-center justify-center p-10 text-white w-full h-[80vh] gap-5"
+    >
+      <p class="mb-5 text-2xl cursor typewriter-animation">
+        Analysez un profil, ses projets et ses langages en quelques secondes.
+      </p>
+      <form
+        action=""
+        class="flex align-center gap-2 p-2 w-[40%] border rounded-lg"
+      >
+        <i class="material-icons flex-1">&#xe8b6;</i>
+        <input
+          type="text"
+          class="flex-4"
+          placeholder="Entrez un nom d'utillisateur..."
+        />
+        <button type="submit" class="flex-2 hover:text-blue-300">
+          Analyser &#8594;
+        </button>
+      </form>
+      <p id="error-msg" class="text-red-500 hidden">
+        Nom d`utilisateur invalide : lettres, chiffres et tirets uniquement.
+      </p>
+    </main>
   </body>
 </html>
