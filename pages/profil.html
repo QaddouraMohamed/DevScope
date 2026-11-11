@@ -4,10 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css"
+      integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/fontawesome.css"
+      integrity="sha512-cOd3Jjo4vXG7cyt5/gEQgxwL6c7THvNQxSZphogpsFKsnbgeqEWa7Xsyf7zvDMpdmDAhiUUJGQPc5R3pocvnBQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="../css/all.css" />
     <title>DevScope</title>
   </head>
-  <body>
+
+  <body class="text-white">
     <header class="flex justify-center align-center w-full text-white">
       <div class="flex justify-between align-center w-[60%] m-5">
         <a href="../index.html"
@@ -27,6 +46,112 @@
       </div>
     </header>
 
-    <main></main>
+    <section
+      class="flex flex-col items-center justify-start p-5 text-white w-full h-[10vh] gap-5"
+    >
+      <form
+        action=""
+        class="flex align-center gap-2 p-2 w-[55%] border rounded-lg"
+      >
+        <i class="material-icons">&#xe8b6;</i>
+        <input
+          type="text"
+          class="flex-4"
+          placeholder="Entrez un nom d'utillisateur..."
+        />
+        <button type="submit" class="hover:text-blue-300">
+          Analyser &#8594;
+        </button>
+      </form>
+      <p id="error-msg" class="text-red-500 hidden">
+        Nom d`utilisateur invalide : lettres, chiffres et tirets uniquement.
+      </p>
+    </section>
+
+    <main class="flex h-full w-[80%] ml-[10%] mt-5 gap-5">
+      <aside
+        class="flex flex-col justify-center items-center gap-3 p-5 w-[30%] h-[100%] bg-indigo-950 rounded-lg"
+      >
+        <div
+          id="profile-pic"
+          class="w-[100px] h-[100px] bg-white rounded-full"
+        ></div>
+
+        <span id="name" class="flex flex-col justify-center items-center">
+          name
+          <p id="user" class="text-cyan-300">user</p>
+        </span>
+
+        <p id="title">'title'</p>
+
+        <div class="bg-blue-500 p-2 rounded-lg">
+          <p id="localisation">Localisationtgffghrftgyertyhdf</p>
+          <p id="member-since">Member sincedsfgdfgsdfgsdfgsdfgds</p>
+        </div>
+
+        <div class="flex justify-between gap-3 text-gray-400 font-bold text-sm">
+          <div class="flex flex-col items-center bg-blue-500 p-2 rounded-lg">
+            <p id="depots" class="text-lg text-white">66</p>
+            <p>DEPOTS</p>
+          </div>
+
+          <div class="flex flex-col items-center bg-blue-500 p-2 rounded-lg">
+            <p id="abonnes" class="text-lg text-white">66</p>
+            <p>ABONNES</p>
+          </div>
+
+          <div class="flex flex-col items-center bg-blue-500 p-2 rounded-lg">
+            <p id="abonnements" class="text-lg text-white">66</p>
+            <p>ABONNEMENTS</p>
+          </div>
+        </div>
+
+        <button
+          id="add-to-shortlist"
+          class="rounded-lg p-2 hover:bg-white hover:text-blue-300"
+        >
+          &#9733; Ajouter a la shortlist
+        </button>
+        <a
+          href=""
+          id="see-profil"
+          class="text-blue-300 border p-2 rounded-lg hover:text-white"
+          >Voir le profil original</a
+        >
+      </aside>
+
+      <section class="w-[70%] h-[100%] bg-indigo-950 rounded-lg">
+        <span class="flex justify-start items-center gap-2 m-3">
+          <h3 class="text-xl font-bold">Depots</h3>
+          <p id="depots-num" class="text-blue-100 bg-blue-500 p-2 rounded-lg">
+            0
+          </p>
+        </span>
+        <div id="repos-container" class="grid grid-cols-2 grid-rows-5 gap-2">
+          <template id="repos-template">
+            <div
+              class="repo flex flex-col justify-start p-2 m-3 mb-2 bg-blue-500 rounded-lg"
+            >
+              <p class="repo-name font-bold">
+                <i
+                  class="fa-brands fa-github fa-float"
+                  style="color: #ffffff"
+                ></i>
+                Test_workflow
+              </p>
+              <p class="description">Aucune description</p>
+              <span class="flex gap-3">
+                <p class="most-lang">&#9679; HTML</p>
+                <p class="stars">&#9733; 0</p>
+                <p class="forks">&#x2442; 0</p>
+              </span>
+              <p class="last-update text-sm text-gray-400">
+                Mise a jour il y a 27 jours
+              </p>
+            </div>
+          </template>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
