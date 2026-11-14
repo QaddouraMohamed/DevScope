@@ -1,3 +1,5 @@
+import { createCandidat } from "./api.js";
+
 export async function getData(username) {
   const url = `https://api.github.com/users/${username}`;
   try {
@@ -22,6 +24,11 @@ export async function getData(username) {
     document.querySelector("#abonnes").textContent = result.followers;
     document.querySelector("#abonnements").textContent = result.following;
     document.querySelector("#see-profil").href = result.html_url;
+
+    //add to shortlist functionality
+    document
+      .querySelector("#add-to-shortlist")
+      .addEventListener("click", () => createCandidat(result));
 
     // add the repos number to the section
     document.querySelector("#depots-num").textContent = result.public_repos;
