@@ -3,10 +3,11 @@ export async function getData(username) {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
+      throw new Error(response.status);
     }
     const result = await response.json();
     // add the user to aside
+    document.querySelector("main").classList.remove("hidden");
     const date = new Date(result.created_at);
     document.querySelector("#profile-pic").style.backgroundImage =
       `url(${result.avatar_url})`;
@@ -26,6 +27,26 @@ export async function getData(username) {
     document.querySelector("#depots-num").textContent = result.public_repos;
   } catch (error) {
     console.error(error.message);
+    switch (error.message) {
+      case "404":
+        document.querySelector("#err-section").classList.remove("hidden");
+        document.querySelector("#err-num").textContent = 404;
+        document.querySelector("#res-status").textContent =
+          "Utilisateur introuvable. Vérifiez le nom d`utilisateur et réessayez.";
+        break;
+      case "403":
+      case "429":
+        document.querySelector("#err-section").classList.remove("hidden");
+        document.querySelector("#err-num").textContent = 403;
+        document.querySelector("#res-status").textContent =
+          "Limite de requêtes GitHub atteinte. Veuillez patienter quelques minutes avant de réessayer.";
+        break;
+      default:
+        document.querySelector("#err-section").classList.remove("hidden");
+        document.querySelector("#res-status").textContent =
+          "Une erreur est survenue. Veuillez réessayer plus tard.";
+        break;
+    }
   }
 }
 
