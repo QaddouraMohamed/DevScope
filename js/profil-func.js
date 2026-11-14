@@ -28,3 +28,39 @@ export async function getData(username) {
     console.error(error.message);
   }
 }
+
+export async function getReposData(username) {
+  const url = `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`;
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Response status: ${response.status}`);
+    }
+    const result = await response.json();
+
+    // add the repos number to the section
+    result.forEach((repo) => {
+      const clone = document
+        .querySelector("#repos-template")
+        .content.cloneNode(true);
+      const date = new Date(repo.updated_at);
+      const days = Math.floor((Date.now() - date) / (1000 * 60 * 60 * 24));
+
+      clone.querySelector(".repo-name").textContent = repo.name;
+      clone.querySelector(".description").textContent = repo.description
+        ? repo.description
+        : "Aucune description";
+      clone.querySelector(".most-lang").textContent = repo.language
+        ? repo.language
+        : "No_Lang";
+      clone.querySelector(".stars").textContent = repo.stargazers_count;
+      clone.querySelector(".forks").textContent = repo.forks_count;
+      clone.querySelector(".last-update").textContent =
+        `Mise a jour il y a ${days} jours`;
+
+      document.querySelector("#repos-container").append(clone);
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+}

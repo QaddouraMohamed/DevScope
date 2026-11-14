@@ -1,4 +1,6 @@
-import { getData } from "./profil-func.js";
+import { getData, getReposData } from "./profil-func.js";
+
+//search functionality --------------------
 import { checkUser, searchUser } from "./search-func.js";
 
 const search = document.querySelector("form");
@@ -7,7 +9,9 @@ const user = document.querySelector("#user");
 user.addEventListener("input", (event) => checkUser(event));
 
 search.addEventListener("submit", (event) => searchUser(event));
+//-----------------------------------------
 
 const username = new URLSearchParams(window.location.search).get("user");
 
 getData(username);
+getReposData(username);

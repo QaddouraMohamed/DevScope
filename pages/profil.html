@@ -23,6 +23,7 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="../css/all.css" />
+    <script type="module" src="../js/profil.js" defer></script>
     <title>DevScope</title>
   </head>
 
@@ -47,7 +48,7 @@
     </header>
 
     <section
-      class="flex flex-col items-center justify-start p-5 text-white w-full h-[10vh] gap-5"
+      class="flex flex-col items-center justify-start p-5 text-white w-full min-h-[10vh] gap-5"
     >
       <form
         action=""
@@ -56,10 +57,17 @@
         <i class="material-icons">&#xe8b6;</i>
         <input
           type="text"
+          name="user"
+          id="user"
           class="flex-4"
           placeholder="Entrez un nom d'utillisateur..."
         />
-        <button type="submit" class="hover:text-blue-300">
+        <button
+          type="submit"
+          id="analyser"
+          class="hover:text-blue-300"
+          disabled
+        >
           Analyser &#8594;
         </button>
       </form>
@@ -68,7 +76,7 @@
       </p>
     </section>
 
-    <main class="flex h-full w-[80%] ml-[10%] mt-5 gap-5">
+    <main class="flex h-full w-[80%] ml-[10%] mt-5 mb-5 gap-5">
       <aside
         class="flex flex-col justify-center items-center gap-3 p-5 w-[30%] h-[100%] bg-indigo-950 rounded-lg"
       >
@@ -76,10 +84,9 @@
           id="profile-pic"
           class="w-[100px] h-[100px] bg-white rounded-full"
         ></div>
-
-        <span id="name" class="flex flex-col justify-center items-center">
-          name
-          <p id="user" class="text-cyan-300">user</p>
+        <span class="flex flex-col justify-center items-center">
+          <p id="name">name</p>
+          <p id="user-name" class="text-cyan-300">user</p>
         </span>
 
         <p id="title">'title'</p>
@@ -114,6 +121,7 @@
         </button>
         <a
           href=""
+          target="_blank"
           id="see-profil"
           class="text-blue-300 border p-2 rounded-lg hover:text-white"
           >Voir le profil original</a
@@ -127,24 +135,36 @@
             0
           </p>
         </span>
-        <div id="repos-container" class="grid grid-cols-2 grid-rows-5 gap-2">
+
+        <div id="repos-container" class="grid grid-cols-2 gap-2">
           <template id="repos-template">
             <div
               class="repo flex flex-col justify-start p-2 m-3 mb-2 bg-blue-500 rounded-lg"
             >
-              <p class="repo-name font-bold">
+              <span class="flex gap-1 align-center">
                 <i
                   class="fa-brands fa-github fa-float"
                   style="color: #ffffff"
                 ></i>
-                Test_workflow
-              </p>
-              <p class="description">Aucune description</p>
-              <span class="flex gap-3">
-                <p class="most-lang">&#9679; HTML</p>
-                <p class="stars">&#9733; 0</p>
-                <p class="forks">&#x2442; 0</p>
+                <p class="repo-name font-bold">Test_workflow</p>
               </span>
+              <p class="description">Aucune description</p>
+
+              <span class="flex gap-3">
+                <span class="flex gap-1 align-center"
+                  ><p>&#9679;</p>
+                  <p class="most-lang">HTML</p>
+                </span>
+                <span class="flex gap-1 align-center"
+                  ><p>&#9733;</p>
+                  <p class="stars">0</p>
+                </span>
+                <span class="flex gap-1 align-center"
+                  ><p>&#x2442;</p>
+                  <p class="forks">0</p>
+                </span>
+              </span>
+
               <p class="last-update text-sm text-gray-400">
                 Mise a jour il y a 27 jours
               </p>
