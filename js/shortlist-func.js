@@ -5,6 +5,14 @@ export async function getShortlist(MOCKAPI_URL) {
       throw new Error(`Response status: ${response.status}`);
     }
     const result = await response.json();
+    //show how many candidat(s)
+    document.querySelector("#candidats-num").textContent =
+      `${result.length} candidat(s) dans votre shortlist`;
+
+    //0 candidat case
+    if (result.length === 0) {
+      document.querySelector("#no-user").classList.remove("hidden");
+    }
 
     // add the repos number to the section
     result.forEach((user) => {
