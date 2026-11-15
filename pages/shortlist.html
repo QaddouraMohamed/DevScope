@@ -23,6 +23,7 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="../css/all.css" />
+    <script type="module" src="../js/shortlist.js" defer></script>
     <title>DevScope</title>
   </head>
 
@@ -46,7 +47,7 @@
       </div>
     </header>
 
-    <main class="h-full w-[80%] ml-[10%] mt-7">
+    <main class="h-full w-[80%] ml-[10%] mt-7 mb-5">
       <h2 class="text-4xl text-blue-300">Ma shortlist</h2>
       <p id="candidats-num">0 candidat(s) dans votre shortlist</p>
 
@@ -70,10 +71,11 @@
         </span>
       </div>
 
-      <template id="users-template">
-        <div
-          class="flex flex-col justify-center align-center gap-4 mt-5 rounded-lg"
-        >
+      <div
+        id="users-container"
+        class="flex flex-col justify-center align-center gap-4 mt-5 rounded-lg"
+      >
+        <template id="users-template">
           <div
             class="flex justify-between items-center p-5 bg-indigo-950 rounded-lg"
           >
@@ -83,12 +85,15 @@
               ></div>
               <div class="flex flex-col gap-1">
                 <p class="name font-bold">Mohamed Qaddoura</p>
-                <p class="user text-sm text-gray-400">
-                  @MohamedQaddoura
-                  <small class="most-lang text-cyan-300 border rounded-md p-1">
+                <span class="flex items-center gap-1">
+                  <p class="user text-gray-400">@MohamedQaddoura</p>
+                  <small
+                    class="most-lang text-sm text-cyan-300 border rounded-md"
+                  >
                     JavaScript
                   </small>
-                </p>
+                </span>
+
                 <i class="note">note</i>
                 <p class="add-time text-sm">Ajoute le 01/01/1970</p>
               </div>
@@ -98,14 +103,20 @@
                 &#9733;&#9733;&#9733;&#9733;&#9733;
               </p>
               <p class="text-red-500 border rounded-md p-1">&#9679; REFUSE</p>
-              <p class="border rounded-md p-1">&#9998; Modifier</p>
-              <p class="text-red-500 border rounded-md p-1">
+              <button
+                class="btn-modify border rounded-md p-1 hover:text-yellow-300"
+              >
+                &#9998; Modifier
+              </button>
+              <button
+                class="btn-delete text-red-500 border rounded-md p-1 hover:text-red-300"
+              >
                 &#10006; Supprimer
-              </p>
+              </button>
             </div>
           </div>
-        </div></template
-      >
+        </template>
+      </div>
     </main>
   </body>
 </html>
