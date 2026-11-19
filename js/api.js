@@ -1,4 +1,5 @@
 import { MOCKAPI_URL } from "./config.js";
+import { getShortlist } from "./shortlist-func.js";
 
 export async function createCandidat(result) {
   const nouveauCandidat = {
@@ -36,5 +37,22 @@ export async function createCandidat(result) {
     }
   } catch (error) {
     console.error(error.message);
+  }
+}
+
+export async function deleteCandidat(id) {
+  const url = `${MOCKAPI_URL}/${id}`;
+  let deleted = false;
+  try {
+    const response = await fetch(url, { method: "DELETE" });
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    getShortlist(MOCKAPI_URL);
+    deleted = true;
+    return deleted;
+  } catch (error) {
+    console.error(error.message);
+    return deleted;
   }
 }

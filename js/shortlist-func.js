@@ -15,6 +15,7 @@ export async function getShortlist(MOCKAPI_URL) {
     }
 
     // add the repos number to the section
+    document.querySelector("#users-container").innerHTML = "";
     result.forEach((user) => {
       const clone = document
         .querySelector("#users-template")
@@ -24,6 +25,7 @@ export async function getShortlist(MOCKAPI_URL) {
         month: "numeric",
         day: "numeric",
       });
+      clone.querySelector(".user-card").dataset.id = user.id;
       clone.querySelector(".profile-pic").style.backgroundImage =
         `url(${user.avatar_url})`;
       clone.querySelector(".name").textContent = user.name;
@@ -37,4 +39,12 @@ export async function getShortlist(MOCKAPI_URL) {
   } catch (error) {
     console.error(error.message);
   }
+}
+
+export function showSection(section) {
+  section.classList.remove("hidden");
+}
+
+export function hideSection(section) {
+  section.classList.add("hidden");
 }
