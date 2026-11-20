@@ -106,10 +106,18 @@
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <p class="rate text-yellow-300">
-              &#9733;&#9733;&#9733;&#9733;&#9733;
+            <p class="rate">
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
             </p>
-            <p class="text-red-500 border rounded-md p-1">&#9679; REFUSE</p>
+            <span class="statut-container flex gap-1 border rounded-md p-1">
+              <p>&#9679;</p>
+              <p class="statut">A Contacter</p>
+            </span>
+
             <button
               class="btn-modify border rounded-md p-1 hover:text-yellow-300"
             >
@@ -175,10 +183,10 @@
             class="bg-indigo-950 border rounded-lg p-2 w-[50%]"
           >
             <option value="">Déterminer le statut de recrutement</option>
-            <option value="a-contacter">A contacter</option>
-            <option value="entretien">Entretien</option>
-            <option value="retenu">Retenu</option>
-            <option value="refuse">Refusé</option>
+            <option value="A Contacter">A Contacter</option>
+            <option value="Entretien">Entretien</option>
+            <option value="Retenu">Retenu</option>
+            <option value="Refusé">Refusé</option>
           </select>
         </span>
 
@@ -190,19 +198,19 @@
             class="bg-indigo-950 border rounded-lg p-2 w-[50%]"
           >
             <option value="">Évaluer</option>
-            <option value="five" class="text-yellow-500">
+            <option value="5" class="text-yellow-500">
               &#9733;&#9733;&#9733;&#9733;&#9733;
             </option>
-            <option value="four" class="text-yellow-500">
+            <option value="4" class="text-yellow-500">
               &#9733;&#9733;&#9733;&#9733;&#9734;
             </option>
-            <option value="three" class="text-yellow-500">
+            <option value="3" class="text-yellow-500">
               &#9733;&#9733;&#9733;&#9734;&#9734;
             </option>
-            <option value="two" class="text-yellow-500">
+            <option value="2" class="text-yellow-500">
               &#9733;&#9733;&#9734;&#9734;&#9734;
             </option>
-            <option value="one" class="text-yellow-500">
+            <option value="1" class="text-yellow-500">
               &#9733;&#9734;&#9734;&#9734;&#9734;
             </option>
           </select>

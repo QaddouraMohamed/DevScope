@@ -25,6 +25,9 @@ export async function getShortlist(MOCKAPI_URL) {
         month: "numeric",
         day: "numeric",
       });
+      const statut = clone.querySelector(".statut");
+      const statutContainer = clone.querySelector(".statut-container");
+
       clone.querySelector(".user-card").dataset.id = user.id;
       clone.querySelector(".profile-pic").style.backgroundImage =
         `url(${user.avatar_url})`;
@@ -33,6 +36,25 @@ export async function getShortlist(MOCKAPI_URL) {
       clone.querySelector(".most-lang").textContent = user.language;
       clone.querySelector(".note").textContent = user.note;
       clone.querySelector(".add-time").textContent = `Ajoute le ${date}`;
+
+      clone.querySelector(".rate").dataset.rate = user.rating;
+      for (let i = 0; i < Number(user.rating); i++) {
+        clone
+          .querySelector(".rate")
+          .children[i].classList.add("text-yellow-300");
+      }
+
+      if (user.status) {
+        statut.textContent = user.status;
+      } else {
+        statut.textContent = "A Contacter";
+      }
+
+      if (user.status === "Retenu") {
+        statutContainer.classList.add("text-green-400");
+      } else if (user.status === "Refusé") {
+        statutContainer.classList.add("text-red-400");
+      }
 
       document.querySelector("#users-container").append(clone);
     });

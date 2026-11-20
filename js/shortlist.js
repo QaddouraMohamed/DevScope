@@ -18,17 +18,19 @@ getShortlist(MOCKAPI_URL);
 usersContainer.addEventListener("click", (event) => {
   const userCard = event.target.closest(".user-card");
   id = userCard.dataset.id;
-  name = userCard.querySelector(".name");
-  user = userCard.querySelector(".user");
-  mostLang = userCard.querySelector(".most-lang");
-  const note = userCard.querySelector(".note").textContent;
+
   if (event.target.closest(".btn-delete")) {
     showSection(deleteSection);
   }
 
   if (event.target.closest(".btn-modify")) {
     showSection(modifySection);
-    modifySection.querySelector("#note").value = note;
+    modifySection.querySelector("#note").value =
+      userCard.querySelector(".note").textContent;
+    modifySection.querySelector("#statut").value =
+      userCard.querySelector(".statut").textContent;
+    modifySection.querySelector("#rating").value =
+      userCard.querySelector(".rate").dataset.rate;
   }
 });
 
