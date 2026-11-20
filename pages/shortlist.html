@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" class="scrollbar-none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -71,56 +71,179 @@
         </span>
       </div>
 
-      <div id="no-user" class="flex justify-center items-center w-full mt-7 hidden">
+      <div
+        id="no-user"
+        class="flex justify-center items-center w-full mt-7 hidden"
+      >
         <p class="text-3xl">Aucun utillisateur!</p>
       </div>
 
       <div
         id="users-container"
         class="flex flex-col justify-center align-center gap-4 mt-5 rounded-lg"
-      >
-        <template id="users-template">
-          <div
-            class="flex justify-between items-center p-5 bg-indigo-950 rounded-lg"
-          >
-            <div class="flex items-center gap-3">
-              <div
-                class="profile-pic w-[50px] h-[50px] bg-white rounded-full"
-              ></div>
-              <div class="flex flex-col gap-1">
-                <p class="name font-bold">Mohamed Qaddoura</p>
-                <span class="flex items-center gap-1">
-                  <p class="user text-gray-400">@MohamedQaddoura</p>
-                  <small
-                    class="most-lang text-sm text-cyan-300 border rounded-md"
-                  >
-                    JavaScript
-                  </small>
-                </span>
+      ></div>
+      <template id="users-template">
+        <div
+          class="user-card flex justify-between items-center p-5 bg-indigo-950 rounded-lg"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="profile-pic w-[50px] h-[50px] bg-white rounded-full"
+            ></div>
+            <div class="flex flex-col gap-1">
+              <p class="name font-bold">Mohamed Qaddoura</p>
+              <span class="flex items-center gap-1">
+                <p class="user text-gray-400">@MohamedQaddoura</p>
+                <small
+                  class="most-lang text-sm text-cyan-300 border rounded-md"
+                >
+                  JavaScript
+                </small>
+              </span>
 
-                <i class="note">note</i>
-                <p class="add-time text-sm">Ajoute le 01/01/1970</p>
-              </div>
-            </div>
-            <div class="flex items-center gap-3">
-              <p class="rate text-yellow-300">
-                &#9733;&#9733;&#9733;&#9733;&#9733;
-              </p>
-              <p class="text-red-500 border rounded-md p-1">&#9679; REFUSE</p>
-              <button
-                class="btn-modify border rounded-md p-1 hover:text-yellow-300"
-              >
-                &#9998; Modifier
-              </button>
-              <button
-                class="btn-delete text-red-500 border rounded-md p-1 hover:text-red-300"
-              >
-                &#10006; Supprimer
-              </button>
+              <i class="note">note</i>
+              <p class="add-time text-sm">Ajoute le 01/01/1970</p>
             </div>
           </div>
-        </template>
-      </div>
+          <div class="flex items-center gap-3">
+            <p class="rate">
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+              <span class="fa fa-star"></span>
+            </p>
+            <span class="statut-container flex gap-1 border rounded-md p-1">
+              <p>&#9679;</p>
+              <p class="statut">A Contacter</p>
+            </span>
+
+            <button
+              class="btn-modify border rounded-md p-1 hover:text-yellow-300"
+            >
+              &#9998; Modifier
+            </button>
+            <button
+              class="btn-delete text-red-500 border rounded-md p-1 hover:text-red-300"
+            >
+              &#10006; Supprimer
+            </button>
+          </div>
+        </div>
+      </template>
     </main>
+
+    <section
+      id="delete"
+      class="flex justify-center items-center fixed inset-0 backdrop-blur-sm hidden"
+    >
+      <div
+        class="flex flex-col justify-between items-center w-[40%] h-[40%] bg-indigo-950 border rounded-lg p-3"
+      >
+        <span class="flex justify-between items-center w-full">
+          <h3 class="text-2xl">Supprimer candidat</h3>
+          <button class="exit-delete hover:text-blue-200">X</button>
+        </span>
+        <p class="text-xl">Êtes-vous sûr de vouloir supprimer ce candidat ?</p>
+        <span class="flex justify-center items-center gap-5"
+          ><button
+            class="exit-delete p-1 border rounded-lg hover:text-blue-200"
+          >
+            Annuler</button
+          ><button
+            id="confirm-delete"
+            class="p-1 border rounded-lg text-red-500 hover:text-red-300"
+          >
+            Supprimer
+          </button></span
+        >
+      </div>
+    </section>
+
+    <section
+      id="modify"
+      class="flex justify-center items-center fixed inset-0 backdrop-blur-sm hidden"
+    >
+      <form
+        id="form-modify"
+        class="flex flex-col justify-between items-center w-[40%] h-[70%] bg-indigo-950 border rounded-lg p-3"
+      >
+        <span class="flex justify-between items-center w-full">
+          <h3 class="text-2xl">Modify candidat</h3>
+          <button type="button" class="exit-modify hover:text-blue-200">
+            X
+          </button>
+        </span>
+
+        <span class="flex flex-col justify-start items-start gap-2 w-full">
+          <p class="text-lg">Statut de recrutement</p>
+          <select
+            name="statut"
+            id="statut"
+            class="bg-indigo-950 border rounded-lg p-2 w-[50%]"
+          >
+            <option value="">Déterminer le statut de recrutement</option>
+            <option value="A Contacter">A Contacter</option>
+            <option value="Entretien">Entretien</option>
+            <option value="Retenu">Retenu</option>
+            <option value="Refusé">Refusé</option>
+          </select>
+        </span>
+
+        <span class="flex flex-col justify-start items-start gap-2 w-full">
+          <p class="text-lg">Note</p>
+          <select
+            name="rating"
+            id="rating"
+            class="bg-indigo-950 border rounded-lg p-2 w-[50%]"
+          >
+            <option value="">Évaluer</option>
+            <option value="5" class="text-yellow-500">
+              &#9733;&#9733;&#9733;&#9733;&#9733;
+            </option>
+            <option value="4" class="text-yellow-500">
+              &#9733;&#9733;&#9733;&#9733;&#9734;
+            </option>
+            <option value="3" class="text-yellow-500">
+              &#9733;&#9733;&#9733;&#9734;&#9734;
+            </option>
+            <option value="2" class="text-yellow-500">
+              &#9733;&#9733;&#9734;&#9734;&#9734;
+            </option>
+            <option value="1" class="text-yellow-500">
+              &#9733;&#9734;&#9734;&#9734;&#9734;
+            </option>
+          </select>
+        </span>
+
+        <span class="flex flex-col justify-start items-start gap-2 w-full">
+          <label for="note" class="text-lg">Note interne</label>
+          <textarea
+            name="note"
+            id="note"
+            cols="60"
+            rows="5"
+            placeholder="Entrer une note interne"
+            class="resize-none border rounded-lg p-2"
+          ></textarea>
+        </span>
+
+        <span class="flex justify-center items-center gap-5">
+          <button
+            type="button"
+            class="exit-modify p-1 border rounded-lg hover:text-blue-200"
+          >
+            Annuler
+          </button>
+          <button
+            type="submit"
+            id="confirm-modify"
+            class="p-1 border rounded-lg text-yellow-500 hover:text-yellow-300"
+          >
+            Modifier
+          </button>
+        </span>
+      </form>
+    </section>
   </body>
 </html>
