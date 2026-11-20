@@ -130,7 +130,7 @@
       class="flex justify-center items-center fixed inset-0 backdrop-blur-sm hidden"
     >
       <div
-        class="flex flex-col justify-between items-center w-[40%] h-[40%] bg-indigo-950 rounded-lg p-3"
+        class="flex flex-col justify-between items-center w-[40%] h-[40%] bg-indigo-950 border rounded-lg p-3"
       >
         <span class="flex justify-between items-center w-full">
           <h3 class="text-2xl">Supprimer candidat</h3>
@@ -150,6 +150,92 @@
           </button></span
         >
       </div>
+    </section>
+
+    <section
+      id="modify"
+      class="flex justify-center items-center fixed inset-0 backdrop-blur-sm hidden"
+    >
+      <form
+        id="form-modify"
+        class="flex flex-col justify-between items-center w-[40%] h-[70%] bg-indigo-950 border rounded-lg p-3"
+      >
+        <span class="flex justify-between items-center w-full">
+          <h3 class="text-2xl">Modify candidat</h3>
+          <button type="button" class="exit-modify hover:text-blue-200">
+            X
+          </button>
+        </span>
+
+        <span class="flex flex-col justify-start items-start gap-2 w-full">
+          <p class="text-lg">Statut de recrutement</p>
+          <select
+            name="statut"
+            id="statut"
+            class="bg-indigo-950 border rounded-lg p-2 w-[50%]"
+          >
+            <option value="">Déterminer le statut de recrutement</option>
+            <option value="a-contacter">A contacter</option>
+            <option value="entretien">Entretien</option>
+            <option value="retenu">Retenu</option>
+            <option value="refuse">Refusé</option>
+          </select>
+        </span>
+
+        <span class="flex flex-col justify-start items-start gap-2 w-full">
+          <p class="text-lg">Note</p>
+          <select
+            name="rating"
+            id="rating"
+            class="bg-indigo-950 border rounded-lg p-2 w-[50%]"
+          >
+            <option value="">Évaluer</option>
+            <option value="five" class="text-yellow-500">
+              &#9733;&#9733;&#9733;&#9733;&#9733;
+            </option>
+            <option value="four" class="text-yellow-500">
+              &#9733;&#9733;&#9733;&#9733;&#9734;
+            </option>
+            <option value="three" class="text-yellow-500">
+              &#9733;&#9733;&#9733;&#9734;&#9734;
+            </option>
+            <option value="two" class="text-yellow-500">
+              &#9733;&#9733;&#9734;&#9734;&#9734;
+            </option>
+            <option value="one" class="text-yellow-500">
+              &#9733;&#9734;&#9734;&#9734;&#9734;
+            </option>
+          </select>
+        </span>
+
+        <span class="flex flex-col justify-start items-start gap-2 w-full">
+          <label for="note" class="text-lg">Note interne</label>
+          <textarea
+            name="note"
+            id="note"
+            cols="60"
+            rows="5"
+            placeholder="Entrer une note interne"
+            class="resize-none border rounded-lg p-2"
+          ></textarea>
+        </span>
+
+        <span class="flex justify-center items-center gap-5">
+          <button
+            type="button"
+            class="exit-modify p-1 border rounded-lg hover:text-blue-200"
+          >
+            Annuler
+          </button>
+          <button
+            type="submit"
+            id="confirm-modify"
+            class="p-1 border rounded-lg text-yellow-500 hover:text-yellow-300"
+          >
+            Modifier
+          </button>
+        </span>
+      </form>
     </section>
   </body>
 </html>

@@ -8,8 +8,8 @@ export async function createCandidat(result) {
     avatar_url: result.avatar_url,
     html_url: result.html_url,
     language: "JavaScript",
-    rating: 3,
-    status: "À contacter",
+    rating: "",
+    status: "a-contacter",
     note: result.blog,
     createdAt: new Date().toISOString(),
   };
@@ -42,17 +42,30 @@ export async function createCandidat(result) {
 
 export async function deleteCandidat(id) {
   const url = `${MOCKAPI_URL}/${id}`;
-  let deleted = false;
   try {
     const response = await fetch(url, { method: "DELETE" });
     if (!response.ok) {
       throw new Error(response.status);
     }
     getShortlist(MOCKAPI_URL);
-    deleted = true;
-    return deleted;
   } catch (error) {
     console.error(error.message);
-    return deleted;
+  }
+}
+
+export async function modifyCandidat(id, modifications) {
+  const url = `${MOCKAPI_URL}/${id}`;
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(modifications),
+    });
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    getShortlist(MOCKAPI_URL);
+  } catch (error) {
+    console.error(error.message);
   }
 }
