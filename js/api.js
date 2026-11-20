@@ -9,7 +9,7 @@ export async function createCandidat(result) {
     html_url: result.html_url,
     language: "JavaScript",
     rating: "",
-    status: "a-contacter",
+    status: "",
     note: result.blog,
     createdAt: new Date().toISOString(),
   };
