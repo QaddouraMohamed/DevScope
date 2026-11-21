@@ -1,13 +1,21 @@
 import { MOCKAPI_URL } from "./config.js";
 import { getShortlist, showSection, hideSection } from "./shortlist-func.js";
 import { deleteCandidat, modifyCandidat } from "./api.js";
+import { coloringClicked } from "./ui.js";
 
 const usersContainer = document.querySelector("#users-container");
 const deleteSection = document.querySelector("#delete");
 const modifySection = document.querySelector("#modify");
 const formModify = document.querySelector("#form-modify");
 const userCard = document.querySelector(".user-card");
+const tous = document.querySelector("#tous");
+const contacter = document.querySelector("#a-contacter");
+const entretien = document.querySelector("#entretien");
+const retenu = document.querySelector("#retenu");
+const refuse = document.querySelector("#refuse");
+const search = document.querySelector("#search");
 
+export const filterObj = { search: "", filter: "tous" };
 let id,
   name,
   user,
@@ -67,4 +75,39 @@ formModify.addEventListener("submit", async (event) => {
   modifySection.querySelector("#statut").value = "";
   modifySection.querySelector("#rating").value = "";
   hideSection(modifySection);
+});
+
+tous.addEventListener("click", () => {
+  coloringClicked(tous);
+  filterObj.filter = "tous";
+  getShortlist(MOCKAPI_URL);
+});
+
+contacter.addEventListener("click", () => {
+  coloringClicked(contacter);
+  filterObj.filter = "A Contacter";
+  getShortlist(MOCKAPI_URL);
+});
+
+entretien.addEventListener("click", () => {
+  coloringClicked(entretien);
+  filterObj.filter = "Entretien";
+  getShortlist(MOCKAPI_URL);
+});
+
+retenu.addEventListener("click", () => {
+  coloringClicked(retenu);
+  filterObj.filter = "Retenu";
+  getShortlist(MOCKAPI_URL);
+});
+
+refuse.addEventListener("click", () => {
+  coloringClicked(refuse);
+  filterObj.filter = "Refusé";
+  getShortlist(MOCKAPI_URL);
+});
+
+search.addEventListener("input", () => {
+  filterObj.search = search.value;
+  getShortlist(MOCKAPI_URL);
 });
