@@ -1,13 +1,20 @@
 import { createCandidat } from "./api.js";
+import { setCache, getCache } from "./cache.js";
 
 export async function getData(username) {
   const url = `https://api.github.com/users/${username}`;
+  const key = `devscope:user:${username}`;
+
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(response.status);
+    let result = getCache(key);
+    if (!result) {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      result = await response.json();
+      setCache(key, result);
     }
-    const result = await response.json();
     // add the user to aside
     document.querySelector("main").classList.remove("hidden");
     const date = new Date(result.created_at);
@@ -59,13 +66,18 @@ export async function getData(username) {
 
 export async function getReposData(username) {
   const url = `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`;
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Response status: ${response.status}`);
-    }
-    const result = await response.json();
+  const key = `devscope:repos:${username}`;
 
+  try {
+    let result = getCache(key);
+    if (!result) {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      result = await response.json();
+      setCache(key, result);
+    }
     // add the repos number to the section
     result.forEach((repo) => {
       const clone = document

@@ -59,8 +59,9 @@ document.querySelectorAll(".exit-modify").forEach((btn) => {
 document
   .querySelector("#confirm-delete")
   .addEventListener("click", async () => {
-    deleteCandidat(id);
     hideSection(deleteSection);
+    await deleteCandidat(id);
+    getShortlist(MOCKAPI_URL);
   });
 
 formModify.addEventListener("submit", async (event) => {
@@ -71,10 +72,11 @@ formModify.addEventListener("submit", async (event) => {
     rating: data.rating,
     note: data.note,
   };
-  modifyCandidat(id, modifications);
+  hideSection(modifySection);
+  await modifyCandidat(id, modifications);
+  getShortlist(MOCKAPI_URL);
   modifySection.querySelector("#statut").value = "";
   modifySection.querySelector("#rating").value = "";
-  hideSection(modifySection);
 });
 
 tous.addEventListener("click", () => {

@@ -1,5 +1,4 @@
 import { MOCKAPI_URL } from "./config.js";
-import { getShortlist } from "./shortlist-func.js";
 
 export async function createCandidat(result) {
   const nouveauCandidat = {
@@ -47,7 +46,6 @@ export async function deleteCandidat(id) {
     if (!response.ok) {
       throw new Error(response.status);
     }
-    getShortlist(MOCKAPI_URL);
   } catch (error) {
     console.error(error.message);
   }
@@ -64,7 +62,6 @@ export async function modifyCandidat(id, modifications) {
     if (!response.ok) {
       throw new Error(response.status);
     }
-    getShortlist(MOCKAPI_URL);
   } catch (error) {
     console.error(error.message);
   }
