@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scrollbar-none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -90,6 +90,32 @@
       </p>
     </section>
 
+    <section
+      id="filter-section"
+      class="flex justify-between items-center w-[80%] ml-[10%] mt-5 mb-5 hidden"
+    >
+      <div class="filter-btns flex gap-3 p-2 mr-5 border rounded-lg">
+        <button id="tous" class="text-blue-300 hover:text-blue-300">
+          Tous
+        </button>
+        <button id="python" class="hover:text-blue-300">Python</button>
+        <button id="cpp" class="hover:text-blue-300">C++</button>
+        <button id="java-script" class="hover:text-blue-300">JavaScript</button>
+        <button id="java" class="hover:text-blue-300">Java</button>
+      </div>
+      <span
+        class="flex flex-2 align-center gap-2 p-2 w-[40%] border rounded-lg"
+      >
+        <i class="material-icons">&#xe8b6;</i>
+        <input
+          type="text"
+          id="search"
+          class="flex-4"
+          placeholder="Entrez un nom de repo..."
+        />
+      </span>
+    </section>
+
     <main class="flex h-full w-[80%] ml-[10%] mt-5 mb-5 gap-5 hidden">
       <aside
         class="flex flex-col justify-center items-center gap-3 p-5 w-[30%] h-[100%] bg-indigo-950 rounded-lg"
@@ -150,41 +176,40 @@
           </p>
         </span>
 
-        <div id="repos-container" class="grid grid-cols-2 gap-2">
-          <template id="repos-template">
-            <div
-              class="repo flex flex-col justify-start p-2 m-3 mb-2 bg-blue-500 rounded-lg"
-            >
-              <span class="flex gap-1 align-center">
-                <i
-                  class="fa-brands fa-github fa-float"
-                  style="color: #ffffff"
-                ></i>
-                <p class="repo-name font-bold">Test_workflow</p>
-              </span>
-              <p class="description">Aucune description</p>
+        <div id="repos-container" class="grid grid-cols-2 gap-2"></div>
+        <template id="repos-template">
+          <div
+            class="repo flex flex-col justify-start p-2 m-3 mb-2 bg-blue-500 rounded-lg"
+          >
+            <span class="flex gap-1 align-center">
+              <i
+                class="fa-brands fa-github fa-float"
+                style="color: #ffffff"
+              ></i>
+              <p class="repo-name font-bold">Test_workflow</p>
+            </span>
+            <p class="description">Aucune description</p>
 
-              <span class="flex gap-3">
-                <span class="flex gap-1 align-center"
-                  ><p>&#9679;</p>
-                  <p class="most-lang">HTML</p>
-                </span>
-                <span class="flex gap-1 align-center"
-                  ><p>&#9733;</p>
-                  <p class="stars">0</p>
-                </span>
-                <span class="flex gap-1 align-center"
-                  ><p>&#x2442;</p>
-                  <p class="forks">0</p>
-                </span>
+            <span class="flex gap-3">
+              <span class="flex gap-1 align-center"
+                ><p>&#9679;</p>
+                <p class="most-lang">HTML</p>
               </span>
+              <span class="flex gap-1 align-center"
+                ><p>&#9733;</p>
+                <p class="stars">0</p>
+              </span>
+              <span class="flex gap-1 align-center"
+                ><p>&#x2442;</p>
+                <p class="forks">0</p>
+              </span>
+            </span>
 
-              <p class="last-update text-sm text-gray-400">
-                Mise a jour il y a 27 jours
-              </p>
-            </div>
-          </template>
-        </div>
+            <p class="last-update text-sm text-gray-400">
+              Mise a jour il y a 27 jours
+            </p>
+          </div>
+        </template>
       </section>
     </main>
 

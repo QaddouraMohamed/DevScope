@@ -1,5 +1,6 @@
 import { createCandidat } from "./api.js";
 import { setCache, getCache } from "./cache.js";
+import { filterObj } from "./profil.js";
 
 export async function getData(username) {
   const url = `https://api.github.com/users/${username}`;
@@ -16,13 +17,13 @@ export async function getData(username) {
       setCache(key, result);
     }
     // add the user to aside
+    document.querySelector("#filter-section").classList.remove("hidden");
     document.querySelector("main").classList.remove("hidden");
     const date = new Date(result.created_at);
     document.querySelector("#profile-pic").style.backgroundImage =
       `url(${result.avatar_url})`;
     document.querySelector("#name").textContent = result.name;
     document.querySelector("#user-name").textContent = result.login;
-    console.log(result.login);
     document.querySelector("#title").textContent = result.bio;
     document.querySelector("#localisation").textContent = result.location;
     document.querySelector("#member-since").textContent =
@@ -36,9 +37,6 @@ export async function getData(username) {
     document
       .querySelector("#add-to-shortlist")
       .addEventListener("click", () => createCandidat(result));
-
-    // add the repos number to the section
-    document.querySelector("#depots-num").textContent = result.public_repos;
   } catch (error) {
     console.error(error.message);
     switch (error.message) {
@@ -79,7 +77,23 @@ export async function getReposData(username) {
       setCache(key, result);
     }
     // add the repos number to the section
-    result.forEach((repo) => {
+    const filtred = result.filter((repo) => {
+      return (
+        repo.name
+          .toLowerCase()
+          .includes(filterObj.search.toLowerCase().trim()) &&
+        (filterObj.filter === "tous" || repo.language === filterObj.filter)
+      );
+    });
+
+    // add the repos number to the section
+    document.querySelector("#depots-num").textContent = filtred.length;
+
+    //clearing the repos container before adding the repos to it
+    document.querySelector("#repos-container").innerHTML = "";
+
+    //adding the repos
+    filtred.forEach((repo) => {
       const clone = document
         .querySelector("#repos-template")
         .content.cloneNode(true);
