@@ -1,188 +1,281 @@
-# DevScope
+# 🔭 DevScope v2
 
-**Trouvez les meilleurs développeurs grâce à leur code.**
+> **Find the best developers through their code.** _Le code ne ment pas._
 
-DevScope est une application web destinée aux recruteurs tech. Elle récupère les profils et les dépôts publics depuis l'**API GitHub**, puis permet de gérer une **shortlist de candidats** enregistrée sur une API REST (**MockAPI**). Fini la recherche développeur par développeur et les notes dispersées dans des fichiers.
+DevScope is a front-end web app for a fictional tech recruitment startup. A recruiter searches a developer by GitHub username, explores their profile and public repositories, and manages a shortlist of candidates saved on a REST API.
 
-**Présentation du projet :** [Voir la présentation Canva](https://canva.link/air2ut184bp9oib)
+**Author:** Mohamed Qaddoura · **Version:** 2.0 · **Stack:** HTML5, Tailwind CSS, vanilla JavaScript (ES modules)
 
 ---
 
-## Fonctionnalités
+## 🎤 Presentation
 
-### Analyse d'un profil
+Project presentation: https://canva.link/gqrz9dnk5ydd0fq
 
-- Recherche d'un développeur par son nom d'utilisateur GitHub
-- Validation du nom d'utilisateur avant l'envoi de la requête : lettres, chiffres et tirets, entre 1 et 39 caractères, sans tiret au début ni à la fin
-- Carte de profil : photo, nom, login, bio, ville, date d'inscription, nombre de dépôts, d'abonnés et d'abonnements
-- Texte par défaut affiché quand une information est manquante (valeur `null` renvoyée par GitHub)
-- Lien vers le profil GitHub original
+---
 
-### Dépôts
+## 📸 Screenshots
 
-- Tous les dépôts publics affichés sous forme de cartes : nom, description, langage, étoiles, forks et date de mise à jour
+|                 Home                 |                  Profile                   |                   Shortlist                    |
+| :----------------------------------: | :----------------------------------------: | :--------------------------------------------: |
+| ![Home](assets/screenshots/home.png) | ![Profile](assets/screenshots/profile.png) | ![Shortlist](assets/screenshots/shortlist.png) |
+
+---
+
+## 📖 About
+
+Recruiters waste time looking up developers one by one on GitHub and tracking candidates in scattered files. DevScope puts everything in one place:
+
+1. **Search** a developer by GitHub username.
+2. **Analyze** their profile and public repositories.
+3. **Shortlist** them as a candidate, then rate them, set a recruitment status and add notes.
+
+The app uses **no framework and no build step**.
+
+---
+
+## ✨ Features
+
+### Search
+
+- Username validation **before** any request: letters, digits and hyphens, 1 to 39 characters, no hyphen at the start or end.
+- Live feedback while typing. The "Analyser" button stays disabled until the name is valid.
+- The search bar is also available on the profile page.
+
+### Profile
+
+- Photo, name, login, bio, location, member since, repositories, followers, following, and a link to the original GitHub profile.
+- Repository cards with name, description, language, stars, forks and last update.
+- One-click **Add to shortlist**, with **duplicate prevention** and clear success or "already added" messages.
 
 ### Shortlist
 
-- Ajout d'un développeur à la shortlist en un clic, enregistré sur MockAPI
-- Protection contre les doublons : un même candidat ne peut pas être ajouté deux fois
-- Page shortlist avec la liste des candidats et leur nombre total
-- Pour chaque candidat : photo, nom, login, langage principal, date d'ajout, statut (À contacter, Entretien, Retenu, Refusé) et note en étoiles
-- Modification et suppression d'un candidat
+- Candidate list loaded from MockAPI, with the total count.
+- **Search** by login.
+- **Status tabs**: All, To contact, Interview, Hired, Rejected.
+- **Edit** a candidate (status, rating out of 5, internal note) with `PUT`.
+- **Delete** a candidate with a confirmation dialog and `DELETE`.
+- Empty state when no candidate matches.
 
-### États de l'interface
+### Robustness
 
-- Indicateur de chargement pendant chaque requête
-- Message clair pour chaque cas d'erreur :
-  - **404** : développeur introuvable
-  - **403 / 429** : limite de requêtes GitHub atteinte
-  - **Erreur réseau** : message avec un bouton « Réessayer »
-  - **Shortlist vide**
+- Clear messages for **404** (user not found), **403 / 429** (GitHub rate limit) and other errors.
+- Every request is protected with `try / catch`, and `response.ok` is checked before the data is used.
+- **Local cache** of GitHub responses (10 minutes) to save the 60 requests per hour limit.
 
 ---
 
-## Pages
+## 🆕 What's new in v2
 
-| Page      | Fichier                          | Rôle                                                                      |
-| --------- | -------------------------------- | ------------------------------------------------------------------------- |
-| Accueil   | `index.html`                     | Page d'accueil avec le message de présentation                            |
-| Recherche | `pages/search.html`              | Champ « Nom d'utilisateur » et bouton « Analyser », avec message d'erreur |
-| Profil    | `pages/profil.html?username=...` | Carte du profil, dépôts et bouton « Ajouter à la shortlist »              |
-| Shortlist | `pages/shortlist.html`           | Liste des candidats enregistrés                                           |
-
-La barre de navigation est identique sur toutes les pages.
-
----
-
-## Technologies utilisées
-
-- **HTML5**
-- **Tailwind CSS** : approche mobile-first et responsive
-- **JavaScript (modules ES6)** avec `import` / `export`
-- **Fetch API** avec `async` / `await`, vérification de `response.ok` et `try` / `catch`
-- **API REST GitHub** pour les profils et les dépôts
-- **MockAPI** pour la persistance de la shortlist
-- **Jira** pour la planification, **Git / GitHub** pour le versionnement
+| Area         | v1                        | v2                                                      |
+| ------------ | ------------------------- | ------------------------------------------------------- |
+| Shortlist    | Add and list candidates   | Edit status, rating and note · Delete with confirmation |
+| Filtering    | Search                    | Search and status tabs combined in one function         |
+| Performance  | Every visit calls GitHub  | `localStorage` cache with a 10-minute lifetime          |
+| Architecture | `api.js` imported UI code | `api.js` talks only to the APIs                         |
+| Feedback     | Console errors            | On-screen messages for success, duplicates and errors   |
 
 ---
 
-## Structure du projet
+## 🛠️ Tech stack
+
+| Layer              | Technology                                            |
+| ------------------ | ----------------------------------------------------- |
+| Markup             | HTML5, semantic tags                                  |
+| Styling            | Tailwind CSS v4, mobile-first                         |
+| Logic              | Vanilla JavaScript, ES6 modules (`import` / `export`) |
+| Data source        | GitHub REST API (profiles and repositories)           |
+| Persistence        | MockAPI (shortlist: `GET`, `POST`, `PUT`, `DELETE`)   |
+| Cache              | `localStorage`                                        |
+| Icons              | Material Icons, Font Awesome                          |
+| Project management | Jira (epics and tickets), Git and GitHub              |
+
+---
+
+## 🏗️ Architecture
+
+### Folder structure
 
 ```
-DevScope/
-├── assets/
-│   ├── image/
-│   └── target/
-├── css/
-│   ├── all.css
-│   └── style.css
-├── js/
-│   ├── api.js              # Appels API (GitHub + MockAPI)
-│   ├── config.js           # Configuration (URL MockAPI), ignoré par Git
-│   ├── search.js           # Point d'entrée de la page Recherche
-│   ├── search-func.js      # Fonctions de la page Recherche
-│   ├── profil.js           # Point d'entrée de la page Profil
-│   ├── profil-func.js      # Fonctions de la page Profil
-│   ├── shortlist.js        # Point d'entrée de la page Shortlist
-│   └── shortlist-func.js   # Fonctions de la page Shortlist
+devscope/
+├── index.html              Home page
 ├── pages/
-│   ├── profil.html
-│   ├── search.html
-│   └── shortlist.html
-├── .gitignore
-├── index.html
+│   ├── search.html         Search page
+│   ├── profil.html         Profile page (?user=...)
+│   └── shortlist.html      Shortlist page
+├── css/
+│   └── all.css             Custom styles Tailwind doesn't cover
+├── js/
+│   ├── config.js           Constants (MockAPI URL)
+│   ├── api.js              MockAPI calls: create, delete, modify
+│   ├── cache.js            localStorage cache with expiration
+│   ├── search.js           Search page entry point
+│   ├── search-func.js      Username validation and redirect
+│   ├── profil.js           Profile page entry point
+│   ├── profil-func.js      Fetch (with cache) and render profile and repos
+│   ├── shortlist.js        Shortlist page entry point and events
+│   ├── shortlist-func.js   Fetch, filter and render candidates
+│   └── ui.js               Small UI helpers
 └── README.md
 ```
 
----
+### Module dependencies
 
-## Utilisation des API
+Each page has one **entry point** that wires the events and calls a **functions file** that does the work. `api.js` and `cache.js` are shared and never touch a specific page.
 
-### GitHub
+```
+search.js ────► search-func.js
 
-| Méthode | Endpoint                                        | Rôle                                 |
-| ------- | ----------------------------------------------- | ------------------------------------ |
-| `GET`   | `https://api.github.com/users/{username}`       | Récupérer le profil d'un utilisateur |
-| `GET`   | `https://api.github.com/users/{username}/repos` | Récupérer ses dépôts publics         |
+profil.js ────► profil-func.js ───► cache.js
+    │                 └───────────► api.js ───► config.js
+    └──────────► search-func.js
 
-### MockAPI
-
-| Méthode  | Endpoint           | Rôle                  |
-| -------- | ------------------ | --------------------- |
-| `GET`    | `/candidates`      | Charger la shortlist  |
-| `POST`   | `/candidates`      | Ajouter un candidat   |
-| `PUT`    | `/candidates/{id}` | Modifier un candidat  |
-| `DELETE` | `/candidates/{id}` | Supprimer un candidat |
-
-Les requêtes `POST` et `PUT` envoient les données avec `JSON.stringify` et l'en-tête `Content-Type: application/json`.
-
----
-
-## Principes de code
-
-- **Un fichier pour les appels API** (`api.js`) et **un fichier par page**, reliés par des modules ES6
-- **Affichage sécurisé** : les données des API sont insérées avec `createElement` et `textContent`, jamais avec `innerHTML`
-- **Interface dynamique** : tout le contenu est généré à partir des données
-- **Validation d'abord** : le nom d'utilisateur est vérifié avant la requête
-- **Accessibilité** : attribut `alt` sur les images, `label` sur les champs, navigation au clavier
-
----
-
-## Installation
-
-```bash
-# 1. Cloner le dépôt
-git clone https://github.com/QaddouraMohamed/DevScope.git
-cd DevScope
-git checkout v1.0
-
-# 2. Lancer un serveur local (les modules ES6 ne fonctionnent pas avec file://)
-npx serve
-# ou utiliser l'extension « Live Server » de VS Code
+shortlist.js ─► shortlist-func.js
+    ├─────────► api.js ───► config.js
+    ├─────────► config.js
+    └─────────► ui.js
 ```
 
-### Configuration de MockAPI
+### Data flow with the cache
 
-Le fichier `js/config.js` est ignoré par Git (voir `.gitignore`). Pour utiliser le projet :
+```
+getData(username)
+   │
+   ├─ getCache(key) ── hit and under 10 min ──► render profile
+   │
+   └─ miss ─► fetch GitHub ─► response.ok ?
+                                 ├─ no  ─► throw status ─► catch shows the message
+                                 └─ yes ─► setCache(key, data) ─► render profile
+```
 
-1. Créer un projet sur [MockAPI](https://mockapi.io/)
-2. Ajouter une ressource `candidates`
-3. Créer le fichier `js/config.js` et y renseigner l'URL de base de votre projet MockAPI
+Errors are **never cached**: `setCache` is only reached after `response.ok` is `true`.
+
+Cache keys follow the format `devscope:user:<login>` and `devscope:repos:<login>`, with the login in lowercase.
+
+### MockAPI data model (`candidats`)
+
+```json
+{
+  "id": "1",
+  "login": "octocat",
+  "name": "The Octocat",
+  "avatar_url": "https://avatars.githubusercontent.com/u/583231?v=4",
+  "html_url": "https://github.com/octocat",
+  "language": "JavaScript",
+  "status": "Entretien",
+  "note": "Strong portfolio",
+  "rating": 4,
+  "createdAt": "2026-11-06T13:58:18.286Z"
+}
+```
+
+### Error handling
+
+| Case                   | Source     | Behavior                                  |
+| ---------------------- | ---------- | ----------------------------------------- |
+| Invalid username       | Validation | Message under the field, no request sent  |
+| `404`                  | GitHub     | "Utilisateur introuvable" message         |
+| `403` / `429`          | GitHub     | Rate limit message                        |
+| Network or other error | Any        | Generic error message                     |
+| Already shortlisted    | MockAPI    | "Already in shortlist" message, no `POST` |
+| No candidate           | Shortlist  | Empty-state message                       |
 
 ---
 
-## Ce que j'ai appris
+## 🚀 Getting started
 
-### Techniques
+### Prerequisites
 
-- **Communiquer avec une API** : utiliser `fetch` avec `async` / `await`, vérifier `response.ok` avant d'exploiter les données et protéger chaque appel avec `try` / `catch`
-- **Les méthodes HTTP et les codes de statut** : `GET`, `POST`, `PUT`, `DELETE`, ainsi que la signification des codes `200`, `201`, `404`, `403` et `429`
-- **Gérer des erreurs différentes** : afficher un message adapté pour un utilisateur introuvable, une limite de requêtes atteinte ou une panne réseau
-- **Envoyer des données en JSON** avec `JSON.stringify` et l'en-tête `Content-Type`
-- **Organiser le code en modules ES6** avec `import` / `export`, en séparant les appels API, la logique et l'affichage de chaque page
-- **Manipuler le DOM de façon sécurisée** : la différence entre `textContent` et `innerHTML`, et pourquoi éviter `innerHTML` avec des données externes (risque d'injection)
-- **Transformer des données** avec `map`, `filter` et `sort`
-- **Gérer les valeurs manquantes** (`null`) pour ne jamais afficher une information vide
-- **Valider une saisie** avant d'envoyer une requête
-- **Éviter les doublons** en vérifiant la shortlist avant chaque ajout
+- A modern browser.
+- A local server. **ES modules do not load from `file://`**, so use the VS Code _Live Server_ extension or `npx serve`.
+- A free MockAPI account.
 
-### Intégration et qualité
+### Installation
 
-- **Tailwind CSS** et l'approche **mobile-first** pour un site responsive
-- **L'accessibilité** : textes alternatifs, labels sur les champs, navigation au clavier
-- **La validation HTML** avec le service du W3C
+```bash
+# 1. Clone the repository
+git clone <repository-url>
+cd devscope
 
-### Organisation
+# 2. Start a local server (pick one)
+npx serve .
+# or open the folder in VS Code and click "Go Live"
+```
 
-- **Planifier avec Jira** : découper le projet en epics et en tickets
-- **Versionner avec Git et GitHub** : commits clairs et réguliers, un avancement poussé chaque soir
-- **Protéger la configuration** avec un fichier ignoré par Git
+### Configure MockAPI
+
+1. Create a project and a resource named **`candidats`** with these fields: `login`, `name`, `avatar_url`, `html_url`, `language`, `status`, `note`, `rating`, `createdAt`.
+2. Put the resource URL in `js/config.js`:
+
+```js
+export const MOCKAPI_URL = "https://<your-id>.mockapi.io/api/v1/candidats";
+```
+
+No GitHub token is needed. Unauthenticated requests are limited to **60 per hour**, which is why the cache exists.
 
 ---
 
-## Auteur
+## 🎓 What I learned
 
-**Mohamed Qaddoura**
-GitHub : [@QaddouraMohamed](https://github.com/QaddouraMohamed)
+### JavaScript and the network
 
-Projet réalisé dans le cadre d'une formation front-end pour la startup fictive _DevScope_.
+- **`fetch` only rejects on network failure.** A `404` or `403` is still a "successful" request, so `response.ok` must be checked before using the data.
+- **`async / await` with `try / catch`** makes asynchronous code read like synchronous code, and one `catch` handles every kind of failure.
+- **HTTP methods and status codes**: `GET` reads, `POST` creates, `PUT` updates, `DELETE` removes. `200`, `404`, `403` and `429` each mean something different to the user.
+- **Sending JSON**: `JSON.stringify(body)` plus the `Content-Type: application/json` header.
+- **Throwing the status code** (`throw new Error(response.status)`) lets one `switch` in the `catch` choose the right message.
+
+### DOM and security
+
+- **`textContent` instead of `innerHTML`** for API data, so a malicious bio or repository name can't inject HTML (XSS).
+- **`<template>` and `cloneNode`**: a template's content is not part of the page, so I query inside the **clone** and append it to a **visible container**.
+- **Event delegation**: one listener on the list container plus `closest()` handles every card, even those created later. `closest()` only looks **up** the tree, never at siblings.
+- **Default values** for `null` data coming from GitHub (no bio, no location, no description).
+
+### Data handling
+
+- **`filter`, `map`, `sort`, `some`** to search, transform and check lists, with several filters combined in one function that always starts from the full list.
+- **`localStorage` cache with an expiration time**: storing `{ data, savedAt }`, comparing with `Date.now()`, and building unique, normalized keys.
+- **Slimming data before caching**: a GitHub repository has about 80 fields and the page uses 6, while `localStorage` holds only about 5 MB.
+
+### Architecture
+
+- **Module side effects**: importing a file _runs_ it. One import in `api.js` loaded the shortlist page's code on the profile page and crashed it.
+- **Separation of concerns**: an API file talks to APIs only. The page decides when to refresh the UI (`await deleteCandidat(id)`, then `getShortlist()`).
+- **Circular imports** (`shortlist.js` and `shortlist-func.js`) work by luck and should be avoided.
+
+### Workflow
+
+- **Jira**: organizing work in epics and tickets and keeping the board up to date.
+- **Git**: small, regular commits with the ticket key in the message, for example `DEV-12: add username validation`.
+- **Reading the console**: the error line shows where the error was _caught_, not always where it _happened_. `console.error(error)` gives the full stack, unlike `error.message`.
+
+### Bugs that taught me the most
+
+| Bug                                                                               | Cause                                                                                          | Fix                                                                                  |
+| --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Profile page blank, `Cannot read properties of null (reading 'addEventListener')` | `api.js` imported `shortlist-func.js`, which loaded `shortlist.js` on every page               | Remove UI imports from `api.js` and refresh the list in `shortlist.js` after `await` |
+| Cache never hit                                                                   | Typo: `savedAT` written, `savedAt` read, so `NaN < duration` was always `false`                | Use the same property name on both sides                                             |
+| Shortlist cards never displayed                                                   | `querySelector` on `document` instead of the clone, and the clone appended to the `<template>` | `clone.querySelector(...)` and append to a visible container                         |
+| Language tag disappeared from the card                                            | `textContent` on a parent erased its child `<small>`                                           | Put the text in its own `<span>`                                                     |
+| "To contact" filter showed nothing                                                | Candidates saved with `status: ""` but filtered with `"A Contacter"`                           | Save a real default status                                                           |
+| Click handler crashed                                                             | `closest()` returned `null` outside a card, and `.note` is a sibling, not an ancestor          | Guard with `if (!card) return` and search inside the card                            |
+
+---
+
+## 🧭 Roadmap
+
+- [ ] Loading spinner during every request
+- [ ] "Réessayer" button on network errors
+- [ ] Shortlist search by **name** as well as login
+- [ ] Shortlist sort (name or date added)
+- [ ] Repository search, language filter, sort and pagination (6 per page)
+- [ ] GitHub rate limit counter in the navbar (`x-ratelimit-remaining` header)
+- [ ] Remove the circular import between `shortlist.js` and `shortlist-func.js`
+- [ ] Full accessibility pass and W3C validation of every page
+
+---
+
+## 👤 Author
+
+**Mohamed Qaddoura** · Front-end training project, November 2026
